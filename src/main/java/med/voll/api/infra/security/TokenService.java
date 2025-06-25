@@ -17,11 +17,11 @@ import java.time.ZoneOffset;
 public class TokenService {
 
     Dotenv dotenv = Dotenv.load();
-    private String keyToken = dotenv.get("KEY_TOKEN");
+    private String secret = dotenv.get("SECRET_TOKEN");
 
-    public String gerarToken(Usuario usuario) {
+    public String generateToken(Usuario usuario) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(keyToken);
+            Algorithm algorithm = Algorithm.HMAC256(secret);
             var token = JWT.create()
                     .withIssuer("API Voll.med")
                     .withSubject(usuario.getLogin())
@@ -34,9 +34,9 @@ public class TokenService {
         }
     }
 
-    public String getSubject(String token) {
+    public String validateToken(String token) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(keyToken);
+            Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
                     .withIssuer("API Voll.med")
                     .build()

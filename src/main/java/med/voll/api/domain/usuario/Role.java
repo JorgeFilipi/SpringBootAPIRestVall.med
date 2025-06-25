@@ -1,12 +1,12 @@
 package med.voll.api.domain.usuario;
 
-public enum UserRole {
+public enum Role {
     ADMIN("admin"),
     USER("user");
 
     private String role;
 
-    UserRole(String role) {
+    Role(String role) {
         this.role = role;
     }
 

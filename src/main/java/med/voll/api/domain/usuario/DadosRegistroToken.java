@@ -1,4 +1,4 @@
 package med.voll.api.domain.usuario;
 
-public record DadosRegistroToken() {
+public record DadosRegistroToken(String token) {
 }
