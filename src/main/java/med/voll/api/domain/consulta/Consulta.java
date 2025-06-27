@@ -1,4 +1,4 @@
-package med.voll.api.domain.agenda;
+package med.voll.api.domain.consulta;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,12 +11,12 @@ import med.voll.api.domain.paciente.Paciente;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "marcacao")
+@Table(name = "consultas")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Agenda {
+public class Consulta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,7 +33,7 @@ public class Agenda {
     private Paciente paciente;
 
 
-    public Agenda(LocalDateTime dataHora, Medico medico, Paciente paciente) {
+    public Consulta(LocalDateTime dataHora, Medico medico, Paciente paciente) {
         this.dataHora = dataHora;
         this.medico = medico;
         this.paciente = paciente;

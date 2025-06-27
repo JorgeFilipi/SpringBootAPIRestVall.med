@@ -12,7 +12,7 @@
     <artifactId>api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>api</name>
-    <description>PAi Rest da aplicação Voll.med</description>
+    <description>API Rest da aplicação Voll.med</description>
     <url/>
     <licenses>
         <license/>

@@ -1,6 +1,8 @@
 package med.voll.api.domain.medico;
 
 import io.micrometer.observation.ObservationFilter;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,16 +20,27 @@ public interface MedicoRepository extends JpaRepository<Medico, Long> {
 
     boolean existsByCrm(String crm);
 
-    @Query("""
-    SELECT DISTINCT m FROM medicos m
-    LEFT JOIN Agenda a ON a.medico = m AND a.dataHora = :dataHora
-    WHERE m.ativo = true
-      AND m.especialidade = :especialidade
-      AND a.id IS NULL
-""")
-    List<Medico> findMedicosDisponiveis(@Param("dataHora") LocalDateTime dataHora,
-                                        @Param("especialidade") Especialidade especialidade);
 
+//    boolean existsByIdAndAtivoTrue(Long id);
+
+    boolean existsByIdAndAtivoTrue(Long idMedico);
+
+
+    @Query(value = """
+                SELECT m FROM Medico m
+                WHERE m.especialidade = :especialidade
+                AND m.ativo = true
+                AND m.id NOT IN (
+                    SELECT c.medico.id FROM Consulta c
+                    WHERE c.dataHora = :data
+                )
+                ORDER BY FUNCTION('RAND')
+                LIMIT 1
+            """, nativeQuery = true)
+    Medico escolherMedicoAleatorioLivreNaData(@Param("especialidade") Especialidade especialidade, @Param("dataHora") LocalDateTime data);
 
     Page<Medico> findAllByAtivoFalse(Pageable paginacao);
+
+
+
 }

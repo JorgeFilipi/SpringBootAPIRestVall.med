@@ -27,7 +27,7 @@ public class pacienteController {
         } else {
             repository.save(paciente);
         }
-        var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(paciente.getId()).toUri();
+        var uri = uriBuilder.path("/paciente/{id}").buildAndExpand(paciente.getId()).toUri();
         return ResponseEntity.created(uri).body(new DadosDetalhamentoPaciente(paciente));
 
     }
