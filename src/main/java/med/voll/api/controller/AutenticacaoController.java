@@ -26,6 +26,8 @@ public class AutenticacaoController {
     @Autowired
     private UsuarioRepository repository;
 
+
+
     @PostMapping()
     public ResponseEntity efetuarLogin(@RequestBody DadosAutenticacao dados) {
         var usernamePassword = new UsernamePasswordAuthenticationToken(dados.login(), dados.senha());
